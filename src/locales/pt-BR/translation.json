@@ -1,0 +1,101 @@
+{
+  "app": {
+    "name": "MyCellar"
+  },
+  "nav": {
+    "cellar": "Adega",
+    "addBottle": "Adicionar",
+    "history": "Histórico",
+    "settings": "Ajustes"
+  },
+  "auth": {
+    "login": "Entrar",
+    "signup": "Criar conta",
+    "logout": "Sair",
+    "email": "Email",
+    "password": "Senha",
+    "confirmPassword": "Confirmar senha",
+    "loginWithGoogle": "Entrar com Google",
+    "orContinueWith": "ou",
+    "acceptTerms": "Li e aceito os <terms>Termos de Uso</terms> e a <privacy>Política de Privacidade</privacy>",
+    "noAccountYet": "Ainda não tem conta?",
+    "alreadyHaveAccount": "Já tem conta?",
+    "passwordsDontMatch": "As senhas não coincidem",
+    "checkYourEmail": "Verifique seu email para confirmar o cadastro antes de entrar.",
+    "genericError": "Não foi possível completar a ação. Tente novamente."
+  },
+  "cellar": {
+    "unplacedTitle_one": "{{count}} garrafa sem posição",
+    "unplacedTitle_other": "{{count}} garrafas sem posição"
+  },
+  "addBottle": {
+    "title": "Adicionar garrafa",
+    "manualTab": "Entrada manual",
+    "scanTab": "Scan de foto",
+    "manualHint": "Preencha os dados da garrafa manualmente.",
+    "notEnoughSlots": "Não há posições vazias suficientes para essa quantidade.",
+    "slotConflict": "Essa posição acabou de ser ocupada. Tente novamente."
+  },
+  "scan": {
+    "hint": "Tire uma foto do rótulo para preencher os dados automaticamente.",
+    "takePhoto": "Tirar/escolher foto",
+    "captureHint": "A IA vai ler o rótulo e pré-preencher o formulário — você revisa antes de salvar.",
+    "reviewHint": "Confira os dados extraídos e ajuste o que precisar antes de salvar.",
+    "retakePhoto": "Tirar outra foto",
+    "rateLimited": "Limite diário de scans atingido. Tente de novo amanhã ou cadastre manualmente.",
+    "notConfigured": "Scan por IA ainda não está configurado neste ambiente. Cadastre manualmente.",
+    "extractionFailed": "Não consegui ler o rótulo direito. Revise e complete os dados manualmente.",
+    "genericError": "Algo deu errado ao processar a foto. Tente novamente ou cadastre manualmente."
+  },
+  "bottle": {
+    "name": "Nome",
+    "type": "Tipo",
+    "types": {
+      "tinto": "Tinto",
+      "branco": "Branco",
+      "rose": "Rosé",
+      "espumante": "Espumante",
+      "fortificado": "Fortificado",
+      "outro": "Outro"
+    },
+    "grapes": "Uvas",
+    "grapesPlaceholder": "ex: Cabernet Sauvignon, Merlot",
+    "country": "País",
+    "region": "Região",
+    "winery": "Vinícola",
+    "vintageYear": "Ano (vintage)",
+    "rating": "Nota (0-5)",
+    "tastingNotes": "Notas de degustação",
+    "photo": "Foto do rótulo",
+    "quantity": "Quantidade de garrafas",
+    "quantityHint": "Cada garrafa física ocupa sua própria posição na adega.",
+    "notFound": "Garrafa não encontrada.",
+    "confirmDelete": "Tem certeza que quer excluir esta garrafa? Essa ação não pode ser desfeita.",
+    "position": "Posição",
+    "positionValue": "{{shelf}}, posição {{slot}}",
+    "noPosition": "Sem posição na adega.",
+    "choosePosition": "Escolher posição",
+    "markConsumed": "Marcar como consumida",
+    "reactivate": "Reativar"
+  },
+  "history": {
+    "empty": "Nenhuma garrafa consumida ainda.",
+    "consumedOn": "Consumida em {{date}}"
+  },
+  "onboarding": {
+    "title": "Configure sua adega",
+    "subtitle": "Diga quantas prateleiras sua adega tem e quantas garrafas cabem em cada uma. Você pode ajustar depois em Ajustes.",
+    "shelfCount": "Número de prateleiras",
+    "capacityPerShelf": "Garrafas por prateleira",
+    "capacityHint": "Todas as prateleiras começam com a mesma capacidade; dá pra ajustar prateleira por prateleira depois.",
+    "cta": "Criar adega",
+    "error": "Não foi possível salvar o layout. Tente novamente."
+  },
+  "common": {
+    "loading": "Carregando...",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "delete": "Excluir",
+    "confirm": "Confirmar"
+  }
+}

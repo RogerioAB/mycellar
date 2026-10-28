@@ -1,0 +1,101 @@
+{
+  "app": {
+    "name": "MyCellar"
+  },
+  "nav": {
+    "cellar": "Bodega",
+    "addBottle": "Agregar",
+    "history": "Historial",
+    "settings": "Ajustes"
+  },
+  "auth": {
+    "login": "Iniciar sesión",
+    "signup": "Crear cuenta",
+    "logout": "Cerrar sesión",
+    "email": "Email",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "loginWithGoogle": "Iniciar sesión con Google",
+    "orContinueWith": "o",
+    "acceptTerms": "He leído y acepto los <terms>Términos de Uso</terms> y la <privacy>Política de Privacidad</privacy>",
+    "noAccountYet": "¿Todavía no tienes cuenta?",
+    "alreadyHaveAccount": "¿Ya tienes cuenta?",
+    "passwordsDontMatch": "Las contraseñas no coinciden",
+    "checkYourEmail": "Revisa tu email para confirmar la cuenta antes de iniciar sesión.",
+    "genericError": "Algo salió mal. Inténtalo de nuevo."
+  },
+  "cellar": {
+    "unplacedTitle_one": "{{count}} botella sin posición",
+    "unplacedTitle_other": "{{count}} botellas sin posición"
+  },
+  "addBottle": {
+    "title": "Agregar botella",
+    "manualTab": "Entrada manual",
+    "scanTab": "Escanear foto",
+    "manualHint": "Completa los datos de la botella manualmente.",
+    "notEnoughSlots": "No hay suficientes posiciones vacías para esa cantidad.",
+    "slotConflict": "Esa posición acaba de ser ocupada. Inténtalo de nuevo."
+  },
+  "scan": {
+    "hint": "Toma una foto de la etiqueta para completar los datos automáticamente.",
+    "takePhoto": "Tomar/elegir foto",
+    "captureHint": "La IA leerá la etiqueta y pre-llenará el formulario — revísalo antes de guardar.",
+    "reviewHint": "Revisa los datos extraídos y ajusta lo que necesites antes de guardar.",
+    "retakePhoto": "Tomar otra foto",
+    "rateLimited": "Límite diario de escaneos alcanzado. Inténtalo mañana o agrega la botella manualmente.",
+    "notConfigured": "El escaneo por IA aún no está configurado en este entorno. Agrega la botella manualmente.",
+    "extractionFailed": "No pude leer bien la etiqueta. Revisa y completa los datos manualmente.",
+    "genericError": "Algo salió mal al procesar la foto. Inténtalo de nuevo o agrégala manualmente."
+  },
+  "bottle": {
+    "name": "Nombre",
+    "type": "Tipo",
+    "types": {
+      "tinto": "Tinto",
+      "branco": "Blanco",
+      "rose": "Rosado",
+      "espumante": "Espumante",
+      "fortificado": "Fortificado",
+      "outro": "Otro"
+    },
+    "grapes": "Uvas",
+    "grapesPlaceholder": "ej: Cabernet Sauvignon, Merlot",
+    "country": "País",
+    "region": "Región",
+    "winery": "Bodega",
+    "vintageYear": "Año (vintage)",
+    "rating": "Puntuación (0-5)",
+    "tastingNotes": "Notas de cata",
+    "photo": "Foto de la etiqueta",
+    "quantity": "Cantidad de botellas",
+    "quantityHint": "Cada botella física ocupa su propia posición en la bodega.",
+    "notFound": "Botella no encontrada.",
+    "confirmDelete": "¿Seguro que quieres eliminar esta botella? Esta acción no se puede deshacer.",
+    "position": "Posición",
+    "positionValue": "{{shelf}}, posición {{slot}}",
+    "noPosition": "Sin posición en la bodega.",
+    "choosePosition": "Elegir posición",
+    "markConsumed": "Marcar como consumida",
+    "reactivate": "Reactivar"
+  },
+  "history": {
+    "empty": "Todavía no hay botellas consumidas.",
+    "consumedOn": "Consumida el {{date}}"
+  },
+  "onboarding": {
+    "title": "Configura tu bodega",
+    "subtitle": "Indica cuántas repisas tiene tu bodega y cuántas botellas caben en cada una. Puedes ajustarlo después en Ajustes.",
+    "shelfCount": "Número de repisas",
+    "capacityPerShelf": "Botellas por repisa",
+    "capacityHint": "Todas las repisas empiezan con la misma capacidad; puedes ajustar cada una después.",
+    "cta": "Crear bodega",
+    "error": "No se pudo guardar el diseño. Inténtalo de nuevo."
+  },
+  "common": {
+    "loading": "Cargando...",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "confirm": "Confirmar"
+  }
+}

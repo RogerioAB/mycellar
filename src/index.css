@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@theme {
+  --color-wine-50: #fdf2f3;
+  --color-wine-100: #fbe3e5;
+  --color-wine-400: #c4495f;
+  --color-wine-600: #8a1f33;
+  --color-wine-700: #6d1828;
+  --color-wine-900: #4a0f1b;
+  --color-cellar-900: #1c1917;
+  --color-cellar-800: #292524;
+  --color-cellar-700: #44403c;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
