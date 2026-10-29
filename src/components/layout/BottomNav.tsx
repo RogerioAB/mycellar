@@ -1,5 +1,7 @@
+import { createPortal } from 'react-dom'
 import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
+import { usePhoneFrameElement } from '../../context/phone-frame-context'
 
 const items = [
   { to: '/cellar', labelKey: 'nav.cellar', icon: '🍷' },
@@ -10,8 +12,9 @@ const items = [
 
 export function BottomNav() {
   const { t } = useTranslation()
+  const frameEl = usePhoneFrameElement()
 
-  return (
+  const nav = (
     <nav
       className="fixed inset-x-0 bottom-0 z-10 flex border-t border-cellar-700/20 bg-white"
       style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
@@ -34,4 +37,9 @@ export function BottomNav() {
       ))}
     </nav>
   )
+
+  // Portal direto pro nó do frame — assim fica fixo ao "celular" em vez de
+  // rolar junto com o conteúdo (ver comentário em PhoneFrame.tsx).
+  if (!frameEl) return null
+  return createPortal(nav, frameEl)
 }

@@ -1,6 +1,8 @@
 import { useEffect, useState, type CSSProperties } from 'react'
 import { useTranslation } from 'react-i18next'
+import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
+import { usePhoneFrameElement } from '../../context/phone-frame-context'
 import { useLabelPhotoUrl } from '../../hooks/useLabelPhotoUrl'
 import type { Bottle } from '../../types/bottle'
 import { BottleIcon } from './BottleIcon'
@@ -17,6 +19,7 @@ export function BottlePreview({
   onConsume: (bottle: Bottle) => Promise<void>
 }) {
   const { t } = useTranslation()
+  const frameEl = usePhoneFrameElement()
   const photoUrl = useLabelPhotoUrl(bottle.label_photo_url)
   const [expanded, setExpanded] = useState(false)
   const [consuming, setConsuming] = useState(false)
@@ -48,9 +51,21 @@ export function BottlePreview({
     }
   }
 
+  if (!frameEl) return null
+
+  // `originRect` vem de getBoundingClientRect(), relativo à janela do
+  // navegador. Este componente é portado pro frame (ver PhoneFrame.tsx) e
+  // vira `fixed` relativo a ele — então a posição inicial precisa ser
+  // convertida para as coordenadas internas do frame, senão em telas largas
+  // (frame centralizado, não colado na borda da janela) a garrafa "nasce"
+  // deslocada da posição real do slot clicado.
+  const frameRect = frameEl.getBoundingClientRect()
+  const originTop = originRect.top - frameRect.top
+  const originLeft = originRect.left - frameRect.left
+
   const collapsedStyle: CSSProperties = {
-    top: originRect.top,
-    left: originRect.left,
+    top: originTop,
+    left: originLeft,
     width: originRect.width,
     height: originRect.height,
     borderRadius: 8,
@@ -64,7 +79,7 @@ export function BottlePreview({
     borderRadius: 16,
   }
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-50" onClick={handleClose}>
       <div
         className={`absolute inset-0 bg-black transition-opacity duration-300 ${expanded ? 'opacity-70' : 'opacity-0'}`}
@@ -117,6 +132,7 @@ export function BottlePreview({
           </div>
         )}
       </div>
-    </div>
+    </div>,
+    frameEl,
   )
 }
