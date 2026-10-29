@@ -8,6 +8,21 @@
     "history": "Histórico",
     "settings": "Ajustes"
   },
+  "footer": {
+    "terms": "Termos de Uso",
+    "privacy": "Política de Privacidade"
+  },
+  "settings": {
+    "layoutTitle": "Layout da adega",
+    "editLayout": "Editar prateleiras e foto de fundo",
+    "languageTitle": "Idioma",
+    "exportTitle": "Exportar dados",
+    "exportHint": "Baixe uma cópia da sua coleção (garrafas ativas e consumidas).",
+    "exportCsv": "Exportar CSV",
+    "exportJson": "Exportar JSON",
+    "installTitle": "Instalar aplicativo",
+    "installCta": "Adicionar à tela inicial"
+  },
   "auth": {
     "login": "Entrar",
     "signup": "Criar conta",
@@ -23,6 +38,11 @@
     "passwordsDontMatch": "As senhas não coincidem",
     "checkYourEmail": "Verifique seu email para confirmar o cadastro antes de entrar.",
     "genericError": "Não foi possível completar a ação. Tente novamente."
+  },
+  "bottlePreview": {
+    "putBack": "Voltar à adega",
+    "consume": "Consumir",
+    "details": "Informações"
   },
   "cellar": {
     "unplacedTitle_one": "{{count}} garrafa sem posição",
@@ -81,6 +101,26 @@
   "history": {
     "empty": "Nenhuma garrafa consumida ainda.",
     "consumedOn": "Consumida em {{date}}"
+  },
+  "settingsLayout": {
+    "shelvesTitle": "Prateleiras",
+    "shelvesHint": "Adicione, remova ou ajuste a capacidade das prateleiras.",
+    "photoTitle": "Foto de fundo (opcional)",
+    "photoHint": "Use uma foto real da sua adega em vez do layout ilustrado."
+  },
+  "layoutEditor": {
+    "affectedCapacity": "Essas garrafas ficarão sem posição ao reduzir a capacidade:",
+    "affectedRemove": "Essas garrafas ficarão sem posição ao remover esta prateleira:",
+    "unassignAndContinue": "Desvincular e continuar",
+    "newShelfCapacity": "Capacidade da nova prateleira",
+    "addShelf": "Adicionar prateleira"
+  },
+  "photoCalibrator": {
+    "uploadHint": "Envie uma foto da sua adega real para usar como fundo.",
+    "calibratingHint": "Toque na foto para marcar a posição {{placed}}/{{total}} de {{shelf}}.",
+    "complete": "Calibração completa — a adega agora usa a foto real.",
+    "recalibrate": "Recalibrar {{shelf}}",
+    "removePhoto": "Remover foto e voltar ao modo ilustrado"
   },
   "onboarding": {
     "title": "Configure sua adega",

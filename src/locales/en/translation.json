@@ -8,6 +8,21 @@
     "history": "History",
     "settings": "Settings"
   },
+  "footer": {
+    "terms": "Terms of Use",
+    "privacy": "Privacy Policy"
+  },
+  "settings": {
+    "layoutTitle": "Cellar layout",
+    "editLayout": "Edit shelves and background photo",
+    "languageTitle": "Language",
+    "exportTitle": "Export data",
+    "exportHint": "Download a copy of your collection (active and consumed bottles).",
+    "exportCsv": "Export CSV",
+    "exportJson": "Export JSON",
+    "installTitle": "Install app",
+    "installCta": "Add to home screen"
+  },
   "auth": {
     "login": "Log in",
     "signup": "Sign up",
@@ -23,6 +38,11 @@
     "passwordsDontMatch": "Passwords don't match",
     "checkYourEmail": "Check your email to confirm your account before logging in.",
     "genericError": "Something went wrong. Please try again."
+  },
+  "bottlePreview": {
+    "putBack": "Put back in the cellar",
+    "consume": "Consume",
+    "details": "Info"
   },
   "cellar": {
     "unplacedTitle_one": "{{count}} bottle with no slot",
@@ -81,6 +101,26 @@
   "history": {
     "empty": "No bottles consumed yet.",
     "consumedOn": "Consumed on {{date}}"
+  },
+  "settingsLayout": {
+    "shelvesTitle": "Shelves",
+    "shelvesHint": "Add, remove, or adjust the capacity of your shelves.",
+    "photoTitle": "Background photo (optional)",
+    "photoHint": "Use a real photo of your cellar instead of the illustrated layout."
+  },
+  "layoutEditor": {
+    "affectedCapacity": "These bottles will lose their slot when you reduce the capacity:",
+    "affectedRemove": "These bottles will lose their slot when you remove this shelf:",
+    "unassignAndContinue": "Unassign and continue",
+    "newShelfCapacity": "New shelf capacity",
+    "addShelf": "Add shelf"
+  },
+  "photoCalibrator": {
+    "uploadHint": "Upload a photo of your real cellar to use as the background.",
+    "calibratingHint": "Tap the photo to mark position {{placed}}/{{total}} of {{shelf}}.",
+    "complete": "Calibration complete — the cellar now uses the real photo.",
+    "recalibrate": "Recalibrate {{shelf}}",
+    "removePhoto": "Remove photo and go back to illustrated mode"
   },
   "onboarding": {
     "title": "Set up your cellar",

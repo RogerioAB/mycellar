@@ -1,17 +1,41 @@
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
+import { AdBanner } from '../components/ads/AdBanner'
+import { BottlePreview } from '../components/cellar/BottlePreview'
+import { PhotoCellarView } from '../components/cellar/PhotoCellarView'
 import { ShelfRow } from '../components/cellar/ShelfRow'
 import { Button } from '../components/ui/Button'
 import { useBottles } from '../hooks/useBottles'
+import { useProfile } from '../hooks/useProfile'
 import { useShelves } from '../hooks/useShelves'
 import { supabase } from '../lib/supabaseClient'
+import type { Bottle } from '../types/bottle'
 
 export default function CellarPage() {
   const { t } = useTranslation()
   const { shelves, loading: shelvesLoading } = useShelves()
-  const { bottles, loading: bottlesLoading } = useBottles('active')
-  const loading = shelvesLoading || bottlesLoading
+  const { bottles, loading: bottlesLoading, refetch: refetchBottles } = useBottles('active')
+  const { profile, loading: profileLoading } = useProfile()
+  const loading = shelvesLoading || bottlesLoading || profileLoading
   const unplaced = bottles.filter((b) => b.shelf_id === null)
+  const [preview, setPreview] = useState<{ bottle: Bottle; originRect: DOMRect } | null>(null)
+
+  const calibrated = shelves.length > 0 && shelves.every((s) => s.slot_positions.length === s.capacity)
+  const usePhotoMode = profile?.display_mode === 'photo' && !!profile.background_image_url && calibrated
+
+  function handleSelectBottle(bottle: Bottle, originRect: DOMRect) {
+    setPreview({ bottle, originRect })
+  }
+
+  async function handleConsume(bottle: Bottle) {
+    await supabase
+      .from('bottles')
+      .update({ status: 'consumed', consumed_at: new Date().toISOString(), shelf_id: null, slot_index: null })
+      .eq('id', bottle.id)
+    await refetchBottles()
+    setPreview(null)
+  }
 
   return (
     <div className="bg-cellar-900 px-4 py-6 text-cellar-50">
@@ -40,10 +64,39 @@ export default function CellarPage() {
               </ul>
             </div>
           )}
-          {shelves.map((shelf, index) => (
-            <ShelfRow key={shelf.id} shelf={shelf} index={index} bottles={bottles} />
-          ))}
+
+          {usePhotoMode ? (
+            <PhotoCellarView
+              backgroundImageUrl={profile!.background_image_url!}
+              shelves={shelves}
+              bottles={bottles}
+              onSelectBottle={handleSelectBottle}
+            />
+          ) : (
+            shelves.map((shelf, index) => (
+              <ShelfRow
+                key={shelf.id}
+                shelf={shelf}
+                index={index}
+                bottles={bottles}
+                onSelectBottle={handleSelectBottle}
+              />
+            ))
+          )}
         </div>
+      )}
+
+      <div className="mt-6">
+        <AdBanner />
+      </div>
+
+      {preview && (
+        <BottlePreview
+          bottle={preview.bottle}
+          originRect={preview.originRect}
+          onClose={() => setPreview(null)}
+          onConsume={handleConsume}
+        />
       )}
     </div>
   )

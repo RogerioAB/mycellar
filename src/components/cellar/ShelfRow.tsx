@@ -6,10 +6,12 @@ export function ShelfRow({
   shelf,
   index,
   bottles,
+  onSelectBottle,
 }: {
   shelf: Shelf
   index: number
   bottles: Bottle[]
+  onSelectBottle: (bottle: Bottle, originRect: DOMRect) => void
 }) {
   const bottleBySlot = new Map(bottles.filter((b) => b.shelf_id === shelf.id).map((b) => [b.slot_index, b]))
 
@@ -25,7 +27,7 @@ export function ShelfRow({
         {Array.from({ length: shelf.capacity }, (_, slotIndex) => {
           const bottle = bottleBySlot.get(slotIndex)
           return bottle ? (
-            <BottleSlot key={slotIndex} bottle={bottle} />
+            <BottleSlot key={slotIndex} bottle={bottle} onSelect={onSelectBottle} />
           ) : (
             <EmptySlot key={slotIndex} shelfId={shelf.id} slotIndex={slotIndex} />
           )

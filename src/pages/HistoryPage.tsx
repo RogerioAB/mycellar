@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
+import { AdBanner } from '../components/ads/AdBanner'
 import { Button } from '../components/ui/Button'
 import { useBottles } from '../hooks/useBottles'
 import { supabase } from '../lib/supabaseClient'
@@ -47,6 +48,10 @@ export default function HistoryPage() {
           ))}
         </ul>
       )}
+
+      <div className="mt-6">
+        <AdBanner />
+      </div>
     </div>
   )
 }

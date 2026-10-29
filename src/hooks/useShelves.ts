@@ -41,5 +41,42 @@ export function useShelves() {
     await refetch()
   }
 
-  return { shelves, loading, refetch, createShelves }
+  async function addShelf(capacity: number, name?: string) {
+    if (!user) throw new Error('not authenticated')
+    const nextIndex = shelves.length > 0 ? Math.max(...shelves.map((s) => s.shelf_index)) + 1 : 0
+    const { error } = await supabase
+      .from('shelves')
+      .insert({ user_id: user.id, shelf_index: nextIndex, capacity, name: name ?? null })
+    if (error) throw error
+    await refetch()
+  }
+
+  async function updateShelfCapacity(shelfId: string, capacity: number) {
+    const { error } = await supabase.from('shelves').update({ capacity }).eq('id', shelfId)
+    if (error) throw error
+    await refetch()
+  }
+
+  async function removeShelf(shelfId: string) {
+    const { error } = await supabase.from('shelves').delete().eq('id', shelfId)
+    if (error) throw error
+    await refetch()
+  }
+
+  async function updateShelfSlotPositions(shelfId: string, positions: { x: number; y: number }[]) {
+    const { error } = await supabase.from('shelves').update({ slot_positions: positions }).eq('id', shelfId)
+    if (error) throw error
+    await refetch()
+  }
+
+  return {
+    shelves,
+    loading,
+    refetch,
+    createShelves,
+    addShelf,
+    updateShelfCapacity,
+    removeShelf,
+    updateShelfSlotPositions,
+  }
 }

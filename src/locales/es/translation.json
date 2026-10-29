@@ -8,6 +8,21 @@
     "history": "Historial",
     "settings": "Ajustes"
   },
+  "footer": {
+    "terms": "Términos de Uso",
+    "privacy": "Política de Privacidad"
+  },
+  "settings": {
+    "layoutTitle": "Diseño de la bodega",
+    "editLayout": "Editar repisas y foto de fondo",
+    "languageTitle": "Idioma",
+    "exportTitle": "Exportar datos",
+    "exportHint": "Descarga una copia de tu colección (botellas activas y consumidas).",
+    "exportCsv": "Exportar CSV",
+    "exportJson": "Exportar JSON",
+    "installTitle": "Instalar aplicación",
+    "installCta": "Agregar a la pantalla de inicio"
+  },
   "auth": {
     "login": "Iniciar sesión",
     "signup": "Crear cuenta",
@@ -23,6 +38,11 @@
     "passwordsDontMatch": "Las contraseñas no coinciden",
     "checkYourEmail": "Revisa tu email para confirmar la cuenta antes de iniciar sesión.",
     "genericError": "Algo salió mal. Inténtalo de nuevo."
+  },
+  "bottlePreview": {
+    "putBack": "Volver a la bodega",
+    "consume": "Consumir",
+    "details": "Información"
   },
   "cellar": {
     "unplacedTitle_one": "{{count}} botella sin posición",
@@ -81,6 +101,26 @@
   "history": {
     "empty": "Todavía no hay botellas consumidas.",
     "consumedOn": "Consumida el {{date}}"
+  },
+  "settingsLayout": {
+    "shelvesTitle": "Repisas",
+    "shelvesHint": "Agrega, elimina o ajusta la capacidad de tus repisas.",
+    "photoTitle": "Foto de fondo (opcional)",
+    "photoHint": "Usa una foto real de tu bodega en vez del diseño ilustrado."
+  },
+  "layoutEditor": {
+    "affectedCapacity": "Estas botellas quedarán sin posición al reducir la capacidad:",
+    "affectedRemove": "Estas botellas quedarán sin posición al eliminar esta repisa:",
+    "unassignAndContinue": "Desvincular y continuar",
+    "newShelfCapacity": "Capacidad de la nueva repisa",
+    "addShelf": "Agregar repisa"
+  },
+  "photoCalibrator": {
+    "uploadHint": "Sube una foto de tu bodega real para usar como fondo.",
+    "calibratingHint": "Toca la foto para marcar la posición {{placed}}/{{total}} de {{shelf}}.",
+    "complete": "Calibración completa — la bodega ahora usa la foto real.",
+    "recalibrate": "Recalibrar {{shelf}}",
+    "removePhoto": "Quitar foto y volver al modo ilustrado"
   },
   "onboarding": {
     "title": "Configura tu bodega",
