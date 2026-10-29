@@ -14,6 +14,8 @@ export function PhotoCalibrator() {
   const { shelves, loading: shelvesLoading, updateShelfSlotPositions } = useShelves()
   const photoUrl = useSignedUrl(profile?.background_image_url ?? null, getCellarPhotoUrl)
   const [uploading, setUploading] = useState(false)
+  const [saving, setSaving] = useState(false)
+  const [pendingMarker, setPendingMarker] = useState<{ x: number; y: number } | null>(null)
   const imgRef = useRef<HTMLImageElement>(null)
 
   const loading = profileLoading || shelvesLoading
@@ -33,19 +35,31 @@ export function PhotoCalibrator() {
   }
 
   async function handleImageClick(e: MouseEvent<HTMLImageElement>) {
-    if (!incompleteShelf || !imgRef.current) return
+    // Trava cliques repetidos enquanto a posição anterior ainda está salvando —
+    // sem isso, um segundo toque antes do app responder visualmente duplicava
+    // o ponto (o usuário tocava de novo achando que não tinha registrado).
+    if (!incompleteShelf || !imgRef.current || saving) return
+
     const rect = imgRef.current.getBoundingClientRect()
     const x = ((e.clientX - rect.left) / rect.width) * 100
     const y = ((e.clientY - rect.top) / rect.height) * 100
-    const next = [...incompleteShelf.slot_positions, { x, y }]
-    await updateShelfSlotPositions(incompleteShelf.id, next)
 
-    const stillIncomplete = shelves.some((s) => {
-      const positions = s.id === incompleteShelf.id ? next : s.slot_positions
-      return positions.length !== s.capacity
-    })
-    if (!stillIncomplete) {
-      await updateProfile({ display_mode: 'photo' })
+    setSaving(true)
+    setPendingMarker({ x, y })
+    try {
+      const next = [...incompleteShelf.slot_positions, { x, y }]
+      await updateShelfSlotPositions(incompleteShelf.id, next)
+
+      const stillIncomplete = shelves.some((s) => {
+        const positions = s.id === incompleteShelf.id ? next : s.slot_positions
+        return positions.length !== s.capacity
+      })
+      if (!stillIncomplete) {
+        await updateProfile({ display_mode: 'photo' })
+      }
+    } finally {
+      setPendingMarker(null)
+      setSaving(false)
     }
   }
 
@@ -91,6 +105,7 @@ export function PhotoCalibrator() {
             placed: incompleteShelf?.slot_positions.length ?? 0,
             total: incompleteShelf?.capacity ?? 0,
           })}
+          {saving && ` ${t('photoCalibrator.saving')}`}
         </p>
       )}
 
@@ -101,7 +116,9 @@ export function PhotoCalibrator() {
             src={photoUrl}
             alt=""
             onClick={handleImageClick}
-            className={incompleteShelf ? 'w-full cursor-crosshair rounded-lg' : 'w-full rounded-lg'}
+            className={`w-full rounded-lg ${
+              incompleteShelf && !saving ? 'cursor-crosshair' : ''
+            } ${saving ? 'opacity-80' : ''}`}
           />
         )}
         {shelves.flatMap((shelf) =>
@@ -114,6 +131,14 @@ export function PhotoCalibrator() {
               {i + 1}
             </span>
           )),
+        )}
+        {pendingMarker && (
+          <span
+            className="absolute flex h-6 w-6 -translate-x-1/2 -translate-y-1/2 animate-pulse items-center justify-center rounded-full bg-wine-700/50 text-xs font-medium text-white shadow"
+            style={{ left: `${pendingMarker.x}%`, top: `${pendingMarker.y}%` }}
+          >
+            …
+          </span>
         )}
       </div>
 

@@ -119,6 +119,7 @@
     "uploadHint": "Sube una foto de tu bodega real para usar como fondo.",
     "calibratingHint": "Toca la foto para marcar la posición {{placed}}/{{total}} de {{shelf}}.",
     "complete": "Calibración completa — la bodega ahora usa la foto real.",
+    "saving": "(guardando...)",
     "recalibrate": "Recalibrar {{shelf}}",
     "removePhoto": "Quitar foto y volver al modo ilustrado"
   },

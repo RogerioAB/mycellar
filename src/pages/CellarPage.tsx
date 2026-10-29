@@ -38,8 +38,8 @@ export default function CellarPage() {
   }
 
   return (
-    <div className="bg-cellar-900 px-4 py-6 text-cellar-50">
-      <div className="mb-4 flex items-center justify-between">
+    <div className="bg-cellar-900 text-cellar-50">
+      <div className="flex items-center justify-between px-4 py-6">
         <h1 className="text-xl font-semibold">{t('nav.cellar')}</h1>
         <Button variant="ghost" className="text-cellar-50" onClick={() => supabase.auth.signOut()}>
           {t('auth.logout')}
@@ -47,11 +47,11 @@ export default function CellarPage() {
       </div>
 
       {loading ? (
-        <p className="text-cellar-50/60">{t('common.loading')}</p>
+        <p className="px-4 text-cellar-50/60">{t('common.loading')}</p>
       ) : (
         <div className="flex flex-col gap-3">
           {unplaced.length > 0 && (
-            <div className="rounded-xl border border-wine-400/60 bg-wine-900/40 p-3 text-sm">
+            <div className="mx-4 rounded-xl border border-wine-400/60 bg-wine-900/40 p-3 text-sm">
               <p className="font-medium">{t('cellar.unplacedTitle', { count: unplaced.length })}</p>
               <ul className="mt-1 flex flex-col gap-1">
                 {unplaced.map((b) => (
@@ -73,20 +73,22 @@ export default function CellarPage() {
               onSelectBottle={handleSelectBottle}
             />
           ) : (
-            shelves.map((shelf, index) => (
-              <ShelfRow
-                key={shelf.id}
-                shelf={shelf}
-                index={index}
-                bottles={bottles}
-                onSelectBottle={handleSelectBottle}
-              />
-            ))
+            <div className="flex flex-col gap-3 px-4">
+              {shelves.map((shelf, index) => (
+                <ShelfRow
+                  key={shelf.id}
+                  shelf={shelf}
+                  index={index}
+                  bottles={bottles}
+                  onSelectBottle={handleSelectBottle}
+                />
+              ))}
+            </div>
           )}
         </div>
       )}
 
-      <div className="mt-6">
+      <div className="px-4 py-6">
         <AdBanner />
       </div>
 

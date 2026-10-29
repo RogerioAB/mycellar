@@ -22,7 +22,7 @@ export function PhotoCellarView({
 
   return (
     <div className="relative">
-      <img src={photoUrl} alt="" className="w-full rounded-xl" />
+      <img src={photoUrl} alt="" className="w-full" />
       {shelves.flatMap((shelf) =>
         shelf.slot_positions.map((pos, slotIndex) => {
           const bottle = bottleByShelfSlot.get(`${shelf.id}:${slotIndex}`)

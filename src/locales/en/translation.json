@@ -119,6 +119,7 @@
     "uploadHint": "Upload a photo of your real cellar to use as the background.",
     "calibratingHint": "Tap the photo to mark position {{placed}}/{{total}} of {{shelf}}.",
     "complete": "Calibration complete — the cellar now uses the real photo.",
+    "saving": "(saving...)",
     "recalibrate": "Recalibrate {{shelf}}",
     "removePhoto": "Remove photo and go back to illustrated mode"
   },

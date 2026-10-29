@@ -20,6 +20,7 @@ body,
 
 body {
   margin: 0;
+  background: #0b0b0c;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
