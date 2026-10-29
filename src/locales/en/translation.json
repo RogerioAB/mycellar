@@ -48,6 +48,16 @@
     "unplacedTitle_one": "{{count}} bottle with no slot",
     "unplacedTitle_other": "{{count}} bottles with no slot"
   },
+  "cellarFilter": {
+    "toggle": "Filter bottles",
+    "allTypes": "All types",
+    "allCountries": "All countries",
+    "allGrapes": "All grapes",
+    "allYears": "All years",
+    "matchCount_one": "{{count}} bottle found",
+    "matchCount_other": "{{count}} bottles found",
+    "clear": "Clear filters"
+  },
   "addBottle": {
     "title": "Add bottle",
     "manualTab": "Manual entry",

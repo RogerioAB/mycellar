@@ -48,6 +48,16 @@
     "unplacedTitle_one": "{{count}} botella sin posición",
     "unplacedTitle_other": "{{count}} botellas sin posición"
   },
+  "cellarFilter": {
+    "toggle": "Filtrar botellas",
+    "allTypes": "Todos los tipos",
+    "allCountries": "Todos los países",
+    "allGrapes": "Todas las uvas",
+    "allYears": "Todos los años",
+    "matchCount_one": "{{count}} botella encontrada",
+    "matchCount_other": "{{count}} botellas encontradas",
+    "clear": "Limpiar filtros"
+  },
   "addBottle": {
     "title": "Agregar botella",
     "manualTab": "Entrada manual",

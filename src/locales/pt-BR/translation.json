@@ -48,6 +48,16 @@
     "unplacedTitle_one": "{{count}} garrafa sem posição",
     "unplacedTitle_other": "{{count}} garrafas sem posição"
   },
+  "cellarFilter": {
+    "toggle": "Filtrar garrafas",
+    "allTypes": "Todos os tipos",
+    "allCountries": "Todos os países",
+    "allGrapes": "Todas as uvas",
+    "allYears": "Todos os anos",
+    "matchCount_one": "{{count}} garrafa encontrada",
+    "matchCount_other": "{{count}} garrafas encontradas",
+    "clear": "Limpar filtros"
+  },
   "addBottle": {
     "title": "Adicionar garrafa",
     "manualTab": "Entrada manual",

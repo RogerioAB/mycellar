@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { AdBanner } from '../components/ads/AdBanner'
+import { BottleFilterPanel } from '../components/cellar/BottleFilterPanel'
 import { BottlePreview } from '../components/cellar/BottlePreview'
 import { PhotoCellarView } from '../components/cellar/PhotoCellarView'
 import { ShelfRow } from '../components/cellar/ShelfRow'
@@ -9,6 +10,7 @@ import { Button } from '../components/ui/Button'
 import { useBottles } from '../hooks/useBottles'
 import { useProfile } from '../hooks/useProfile'
 import { useShelves } from '../hooks/useShelves'
+import { bottleMatchesFilter, isFilterActive, EMPTY_FILTER, type BottleFilterValue } from '../lib/bottleFilter'
 import { supabase } from '../lib/supabaseClient'
 import type { Bottle } from '../types/bottle'
 
@@ -20,9 +22,17 @@ export default function CellarPage() {
   const loading = shelvesLoading || bottlesLoading || profileLoading
   const unplaced = bottles.filter((b) => b.shelf_id === null)
   const [preview, setPreview] = useState<{ bottle: Bottle; originRect: DOMRect } | null>(null)
+  const [filterOpen, setFilterOpen] = useState(false)
+  const [filter, setFilter] = useState<BottleFilterValue>(EMPTY_FILTER)
 
   const calibrated = shelves.length > 0 && shelves.every((s) => s.slot_positions.length === s.capacity)
   const usePhotoMode = profile?.display_mode === 'photo' && !!profile.background_image_url && calibrated
+
+  const filterActive = isFilterActive(filter)
+  const matchingIds = useMemo(() => {
+    if (!filterActive) return null
+    return new Set(bottles.filter((b) => bottleMatchesFilter(b, filter)).map((b) => b.id))
+  }, [bottles, filter, filterActive])
 
   function handleSelectBottle(bottle: Bottle, originRect: DOMRect) {
     setPreview({ bottle, originRect })
@@ -41,10 +51,31 @@ export default function CellarPage() {
     <div className="bg-cellar-900 text-cellar-50">
       <div className="flex items-center justify-between px-4 py-6">
         <h1 className="text-xl font-semibold">{t('nav.cellar')}</h1>
-        <Button variant="ghost" className="text-cellar-50" onClick={() => supabase.auth.signOut()}>
-          {t('auth.logout')}
-        </Button>
+        <div className="flex items-center gap-1">
+          <Button
+            variant="ghost"
+            className={filterActive ? 'text-wine-400' : 'text-cellar-50'}
+            aria-label={t('cellarFilter.toggle')}
+            onClick={() => setFilterOpen((v) => !v)}
+          >
+            🔍
+          </Button>
+          <Button variant="ghost" className="text-cellar-50" onClick={() => supabase.auth.signOut()}>
+            {t('auth.logout')}
+          </Button>
+        </div>
       </div>
+
+      {filterOpen && (
+        <div className="mb-3">
+          <BottleFilterPanel
+            bottles={bottles}
+            value={filter}
+            onChange={setFilter}
+            matchCount={matchingIds?.size ?? 0}
+          />
+        </div>
+      )}
 
       {loading ? (
         <p className="px-4 text-cellar-50/60">{t('common.loading')}</p>
@@ -71,6 +102,7 @@ export default function CellarPage() {
               shelves={shelves}
               bottles={bottles}
               onSelectBottle={handleSelectBottle}
+              matchingIds={matchingIds}
             />
           ) : (
             <div className="flex flex-col gap-3 px-4">
@@ -81,6 +113,7 @@ export default function CellarPage() {
                   index={index}
                   bottles={bottles}
                   onSelectBottle={handleSelectBottle}
+                  matchingIds={matchingIds}
                 />
               ))}
             </div>

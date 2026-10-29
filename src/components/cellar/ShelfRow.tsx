@@ -7,11 +7,14 @@ export function ShelfRow({
   index,
   bottles,
   onSelectBottle,
+  matchingIds,
 }: {
   shelf: Shelf
   index: number
   bottles: Bottle[]
   onSelectBottle: (bottle: Bottle, originRect: DOMRect) => void
+  /** Quando definido, garrafas no conjunto ficam destacadas e as demais esmaecidas. */
+  matchingIds?: Set<string> | null
 }) {
   const bottleBySlot = new Map(bottles.filter((b) => b.shelf_id === shelf.id).map((b) => [b.slot_index, b]))
 
@@ -26,10 +29,10 @@ export function ShelfRow({
       >
         {Array.from({ length: shelf.capacity }, (_, slotIndex) => {
           const bottle = bottleBySlot.get(slotIndex)
-          return bottle ? (
-            <BottleSlot key={slotIndex} bottle={bottle} onSelect={onSelectBottle} />
-          ) : (
-            <EmptySlot key={slotIndex} shelfId={shelf.id} slotIndex={slotIndex} />
+          if (!bottle) return <EmptySlot key={slotIndex} shelfId={shelf.id} slotIndex={slotIndex} />
+          const matchState = !matchingIds ? 'neutral' : matchingIds.has(bottle.id) ? 'match' : 'dim'
+          return (
+            <BottleSlot key={slotIndex} bottle={bottle} onSelect={onSelectBottle} matchState={matchState} />
           )
         })}
       </div>
