@@ -63,8 +63,12 @@
     "manualTab": "Entrada manual",
     "scanTab": "Scan de foto",
     "manualHint": "Preencha os dados da garrafa manualmente.",
-    "notEnoughSlots": "Não há posições vazias suficientes para essa quantidade.",
+    "notEnoughSlots": "Não há nenhuma posição vazia na adega no momento.",
     "slotConflict": "Essa posição acabou de ser ocupada. Tente novamente."
+  },
+  "multiSlotPicker": {
+    "title": "Escolha a posição",
+    "hintSingle": "Toque na posição vazia da adega onde quer colocar a garrafa."
   },
   "scan": {
     "hint": "Tire uma foto do rótulo para preencher os dados automaticamente.",
@@ -97,8 +101,6 @@
     "rating": "Nota (0-5)",
     "tastingNotes": "Notas de degustação",
     "photo": "Foto do rótulo",
-    "quantity": "Quantidade de garrafas",
-    "quantityHint": "Cada garrafa física ocupa sua própria posição na adega.",
     "notFound": "Garrafa não encontrada.",
     "confirmDelete": "Tem certeza que quer excluir esta garrafa? Essa ação não pode ser desfeita.",
     "position": "Posição",

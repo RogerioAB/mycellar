@@ -7,7 +7,6 @@ interface Props {
   photoUrl: string | null
   extractedFields: Partial<BottleFields> | null
   extractionError: string | null
-  showQuantity: boolean
   submitting: boolean
   submitError: string | null
   photoFile: File | null
@@ -21,7 +20,6 @@ export function ScanPreviewForm({
   photoUrl,
   extractedFields,
   extractionError,
-  showQuantity,
   submitting,
   submitError,
   photoFile,
@@ -46,8 +44,6 @@ export function ScanPreviewForm({
 
       <BottleForm
         key={photoUrl ?? 'scan'}
-        mode="create"
-        showQuantity={showQuantity}
         initial={extractedFields ?? undefined}
         existingPhotoUrl={photoUrl}
         photoFile={photoFile}

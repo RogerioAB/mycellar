@@ -202,7 +202,6 @@ export default function BottleDetailPage() {
 
       <div className="mt-6">
         <BottleForm
-          mode="edit"
           initial={{
             name: bottle.name,
             wine_type: bottle.wine_type,

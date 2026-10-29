@@ -54,13 +54,13 @@ export default function CellarPage() {
         <div className="flex items-center gap-1">
           <Button
             variant="ghost"
-            className={filterActive ? 'text-wine-400' : 'text-cellar-50'}
+            className={filterActive ? '!text-wine-400' : '!text-cellar-50'}
             aria-label={t('cellarFilter.toggle')}
             onClick={() => setFilterOpen((v) => !v)}
           >
             🔍
           </Button>
-          <Button variant="ghost" className="text-cellar-50" onClick={() => supabase.auth.signOut()}>
+          <Button variant="ghost" className="!text-cellar-50" onClick={() => supabase.auth.signOut()}>
             {t('auth.logout')}
           </Button>
         </div>

@@ -63,8 +63,12 @@
     "manualTab": "Manual entry",
     "scanTab": "Scan photo",
     "manualHint": "Fill in the bottle's details manually.",
-    "notEnoughSlots": "Not enough empty slots for that quantity.",
+    "notEnoughSlots": "There are no empty slots in the cellar right now.",
     "slotConflict": "That slot was just taken. Please try again."
+  },
+  "multiSlotPicker": {
+    "title": "Choose the position",
+    "hintSingle": "Tap the empty cellar slot where you want to place the bottle."
   },
   "scan": {
     "hint": "Take a photo of the label to auto-fill the details.",
@@ -97,8 +101,6 @@
     "rating": "Rating (0-5)",
     "tastingNotes": "Tasting notes",
     "photo": "Label photo",
-    "quantity": "Number of bottles",
-    "quantityHint": "Each physical bottle takes its own slot in the cellar.",
     "notFound": "Bottle not found.",
     "confirmDelete": "Are you sure you want to delete this bottle? This can't be undone.",
     "position": "Position",

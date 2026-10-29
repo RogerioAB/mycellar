@@ -26,7 +26,7 @@ export function BottleFilterPanel({
         <Select
           value={value.wineType ?? ''}
           onChange={(e) => onChange({ ...value, wineType: (e.target.value || null) as never })}
-          className="border-cellar-700/30 bg-cellar-900 text-cellar-50"
+          className="!border-cellar-700/30 !bg-cellar-900 !text-cellar-50"
         >
           <option value="">{t('cellarFilter.allTypes')}</option>
           {WINE_TYPES.map((wt) => (
@@ -39,7 +39,7 @@ export function BottleFilterPanel({
         <Select
           value={value.country ?? ''}
           onChange={(e) => onChange({ ...value, country: e.target.value || null })}
-          className="border-cellar-700/30 bg-cellar-900 text-cellar-50"
+          className="!border-cellar-700/30 !bg-cellar-900 !text-cellar-50"
         >
           <option value="">{t('cellarFilter.allCountries')}</option>
           {options.countries.map((c) => (
@@ -52,7 +52,7 @@ export function BottleFilterPanel({
         <Select
           value={value.grape ?? ''}
           onChange={(e) => onChange({ ...value, grape: e.target.value || null })}
-          className="border-cellar-700/30 bg-cellar-900 text-cellar-50"
+          className="!border-cellar-700/30 !bg-cellar-900 !text-cellar-50"
         >
           <option value="">{t('cellarFilter.allGrapes')}</option>
           {options.grapes.map((g) => (
@@ -65,7 +65,7 @@ export function BottleFilterPanel({
         <Select
           value={value.vintageYear ?? ''}
           onChange={(e) => onChange({ ...value, vintageYear: e.target.value ? Number(e.target.value) : null })}
-          className="border-cellar-700/30 bg-cellar-900 text-cellar-50"
+          className="!border-cellar-700/30 !bg-cellar-900 !text-cellar-50"
         >
           <option value="">{t('cellarFilter.allYears')}</option>
           {options.vintageYears.map((y) => (

@@ -2,15 +2,16 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { BottleForm, type BottleFormValues } from '../components/bottles/BottleForm'
+import { SlotPicker } from '../components/bottles/SlotPicker'
 import { PhotoCapture } from '../components/scan/PhotoCapture'
 import { ScanPreviewForm } from '../components/scan/ScanPreviewForm'
 import { useAuth } from '../hooks/useAuth'
 import { useBottles, type BottleFields } from '../hooks/useBottles'
 import { useLabelPhotoUrl } from '../hooks/useLabelPhotoUrl'
-import { useShelves } from '../hooks/useShelves'
-import { uploadLabelPhoto } from '../lib/labelPhoto'
 import { listFreeSlots } from '../lib/slots'
 import { supabase } from '../lib/supabaseClient'
+import { uploadLabelPhoto } from '../lib/labelPhoto'
+import { useShelves } from '../hooks/useShelves'
 
 type EntryMode = 'manual' | 'scan'
 type ScanStatus = 'idle' | 'uploading' | 'done' | 'failed'
@@ -41,6 +42,13 @@ export default function AddBottlePage() {
   const [scanFields, setScanFields] = useState<Partial<BottleFields> | null>(null)
   const [scanError, setScanError] = useState<string | null>(null)
   const scanPhotoUrl = useLabelPhotoUrl(scanPhotoPath)
+
+  // Quando o usuário entra por um slot vazio específico (clicou num "+" na
+  // Adega), a posição já está decidida. Quando entra pelo menu "Adicionar",
+  // ele escolhe a posição manualmente depois de preencher os dados — ver
+  // `pendingValues`/`picking` abaixo.
+  const [pendingValues, setPendingValues] = useState<BottleFormValues | null>(null)
+  const [picking, setPicking] = useState(false)
 
   const preferredShelfId = searchParams.get('shelfId')
   const preferredSlot = searchParams.get('slot')
@@ -96,28 +104,21 @@ export default function AddBottlePage() {
     setPhotoFile(null)
   }
 
-  async function handleSubmit(values: BottleFormValues) {
+  async function saveBottle(values: BottleFormValues, shelfId: string, slotIndex: number) {
     if (!user) return
     setError(null)
-
-    const freeSlots = listFreeSlots(shelves, bottles, preferred)
-    if (freeSlots.length < values.quantity) {
-      setError(t('addBottle.notEnoughSlots'))
-      return
-    }
-
     setSubmitting(true)
     try {
       const labelPhotoPath = photoFile
         ? await uploadLabelPhoto(user.id, photoFile)
         : (values.label_photo_url ?? null)
 
-      const { quantity, ...fields } = values
-      await createBottles({ ...fields, label_photo_url: labelPhotoPath }, freeSlots.slice(0, quantity))
+      await createBottles({ ...values, label_photo_url: labelPhotoPath }, [{ shelfId, slotIndex }])
       navigate('/cellar')
     } catch (err) {
       if (err instanceof Error && err.message === 'slot_conflict') {
         setError(t('addBottle.slotConflict'))
+        setPicking(false)
       } else {
         setError(t('auth.genericError'))
       }
@@ -126,10 +127,58 @@ export default function AddBottlePage() {
     }
   }
 
+  async function handleSubmit(values: BottleFormValues) {
+    if (!user) return
+    setError(null)
+
+    if (preferred) {
+      await saveBottle(values, preferred.shelfId, preferred.slotIndex)
+      return
+    }
+
+    if (listFreeSlots(shelves, bottles).length === 0) {
+      setError(t('addBottle.notEnoughSlots'))
+      return
+    }
+
+    // Sem slot pré-escolhido: guarda os dados preenchidos e deixa o usuário
+    // escolher visualmente onde colocar, em vez de decidir automaticamente.
+    setPendingValues(values)
+    setPicking(true)
+  }
+
+  async function handlePickSlot(shelfId: string, slotIndex: number) {
+    if (!pendingValues) return
+    await saveBottle(pendingValues, shelfId, slotIndex)
+  }
+
   function handleModeChange(next: EntryMode) {
     setMode(next)
     resetScan()
     setError(null)
+    setPendingValues(null)
+    setPicking(false)
+  }
+
+  if (picking && pendingValues) {
+    return (
+      <div className="px-4 py-6">
+        <h1 className="text-xl font-semibold text-cellar-900">{t('multiSlotPicker.title')}</h1>
+        <p className="mt-1 text-sm text-cellar-700">{t('multiSlotPicker.hintSingle')}</p>
+        <div className="mt-4">
+          <SlotPicker onPick={handlePickSlot} disabled={submitting} />
+        </div>
+        {submitting && <p className="mt-3 text-sm text-cellar-700">{t('common.loading')}</p>}
+        {error && <p className="mt-3 text-sm text-wine-700">{error}</p>}
+        <button
+          type="button"
+          onClick={() => setPicking(false)}
+          className="mt-4 text-sm font-medium text-wine-700 underline"
+        >
+          {t('common.cancel')}
+        </button>
+      </div>
+    )
   }
 
   return (
@@ -162,8 +211,7 @@ export default function AddBottlePage() {
           <>
             <p className="mb-4 text-sm text-cellar-700">{t('addBottle.manualHint')}</p>
             <BottleForm
-              mode="create"
-              showQuantity={!preferred}
+              initial={pendingValues ?? undefined}
               photoFile={photoFile}
               onPhotoFileChange={setPhotoFile}
               submitting={submitting}
@@ -180,9 +228,8 @@ export default function AddBottlePage() {
         ) : (
           <ScanPreviewForm
             photoUrl={scanPhotoUrl}
-            extractedFields={scanPhotoPath ? { ...scanFields, label_photo_url: scanPhotoPath } : null}
+            extractedFields={pendingValues ?? (scanPhotoPath ? { ...scanFields, label_photo_url: scanPhotoPath } : null)}
             extractionError={scanError}
-            showQuantity={!preferred}
             submitting={submitting}
             submitError={error}
             photoFile={photoFile}

@@ -7,12 +7,9 @@ import { Textarea } from '../ui/Textarea'
 import { WINE_TYPES, type WineType } from '../../types/bottle'
 import type { BottleFields } from '../../hooks/useBottles'
 
-export interface BottleFormValues extends BottleFields {
-  quantity: number
-}
+export type BottleFormValues = BottleFields
 
 interface Props {
-  mode: 'create' | 'edit'
   initial?: Partial<BottleFormValues>
   photoFile: File | null
   onPhotoFileChange: (file: File | null) => void
@@ -21,12 +18,9 @@ interface Props {
   error?: string | null
   onSubmit: (values: BottleFormValues) => void
   onCancel?: () => void
-  /** Mostra o campo de quantidade — só faz sentido quando não há um slot específico já escolhido. */
-  showQuantity?: boolean
 }
 
 export function BottleForm({
-  mode,
   initial,
   photoFile,
   onPhotoFileChange,
@@ -35,7 +29,6 @@ export function BottleForm({
   error,
   onSubmit,
   onCancel,
-  showQuantity = true,
 }: Props) {
   const { t } = useTranslation()
   const [name, setName] = useState(initial?.name ?? '')
@@ -47,7 +40,6 @@ export function BottleForm({
   const [vintageYear, setVintageYear] = useState(initial?.vintage_year?.toString() ?? '')
   const [rating, setRating] = useState(initial?.rating?.toString() ?? '')
   const [tastingNotes, setTastingNotes] = useState(initial?.tasting_notes ?? '')
-  const [quantity, setQuantity] = useState(initial?.quantity ?? 1)
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault()
@@ -62,7 +54,6 @@ export function BottleForm({
       rating: rating ? Number(rating) : null,
       tasting_notes: tastingNotes.trim() || null,
       label_photo_url: initial?.label_photo_url ?? null,
-      quantity,
     })
   }
 
@@ -152,22 +143,6 @@ export function BottleForm({
           className="text-sm"
         />
       </label>
-
-      {mode === 'create' && showQuantity && (
-        <label className="flex flex-col gap-1.5">
-          <span className="text-sm font-medium text-cellar-900">{t('bottle.quantity')}</span>
-          <Input
-            type="number"
-            inputMode="numeric"
-            min={1}
-            max={50}
-            required
-            value={quantity}
-            onChange={(e) => setQuantity(Number(e.target.value))}
-          />
-          <span className="text-xs text-cellar-700">{t('bottle.quantityHint')}</span>
-        </label>
-      )}
 
       {error && <p className="text-sm text-wine-700">{error}</p>}
 

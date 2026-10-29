@@ -63,8 +63,12 @@
     "manualTab": "Entrada manual",
     "scanTab": "Escanear foto",
     "manualHint": "Completa los datos de la botella manualmente.",
-    "notEnoughSlots": "No hay suficientes posiciones vacías para esa cantidad.",
+    "notEnoughSlots": "No hay ninguna posición vacía en la bodega en este momento.",
     "slotConflict": "Esa posición acaba de ser ocupada. Inténtalo de nuevo."
+  },
+  "multiSlotPicker": {
+    "title": "Elige la posición",
+    "hintSingle": "Toca la posición vacía de la bodega donde quieres colocar la botella."
   },
   "scan": {
     "hint": "Toma una foto de la etiqueta para completar los datos automáticamente.",
@@ -97,8 +101,6 @@
     "rating": "Puntuación (0-5)",
     "tastingNotes": "Notas de cata",
     "photo": "Foto de la etiqueta",
-    "quantity": "Cantidad de botellas",
-    "quantityHint": "Cada botella física ocupa su propia posición en la bodega.",
     "notFound": "Botella no encontrada.",
     "confirmDelete": "¿Seguro que quieres eliminar esta botella? Esta acción no se puede deshacer.",
     "position": "Posición",
